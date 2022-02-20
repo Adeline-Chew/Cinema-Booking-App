@@ -7,28 +7,31 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Booking class
+ * 
+ * Represent Booking information of a cinema seat booking
+ * 
+ * @author Adeline Chew Yao Yi
+ */
 @Entity
-@Table(name= "booking")
+@Table(name = "booking")
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-//    @ManyToOne(fetch= FetchType.LAZY)
-//    @JoinColumn(name="customer_id")
-//    private Customer customer;
-
-    @Column(name="first_name")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name="last_name")
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "email")
     private String email;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="movie_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "movie_id")
     private Movie movie;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -40,7 +43,7 @@ public class Booking {
     @Column(name = "total")
     private Double total;
 
-    @Column(name="created_at")
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     public Booking() {

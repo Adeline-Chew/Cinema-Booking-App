@@ -9,8 +9,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Movie class
+ * 
+ * Represent Movie in cinema, each movie has 50 seats in the theater
+ * 
+ * @author Adeline Chew Yao Yi
+ */
 @Entity
-@Table(name= "movie")
+@Table(name = "movie")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,7 +43,7 @@ public class Movie {
     @OrderBy("id")
     private List<Seat> seats;
 
-    public Movie () {
+    public Movie() {
         this.initialiseSeats();
     }
 

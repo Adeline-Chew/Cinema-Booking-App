@@ -2,8 +2,15 @@ package com.chew.adeline.cinemaapp.model;
 
 import javax.persistence.*;
 
+/**
+ * Seat class
+ * 
+ * Represent seats in cinema, tied with movie id
+ * 
+ * @author Adeline Chew Yao Yi
+ */
 @Entity
-@Table(name= "seat")
+@Table(name = "seat")
 public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +25,8 @@ public class Seat {
     @Column(name = "booked")
     private boolean booked = false;
 
-    public Seat() {}
+    public Seat() {
+    }
 
     public Seat(char rowName, int col) {
         this.rowName = rowName;
@@ -57,4 +65,3 @@ public class Seat {
         this.booked = booked;
     }
 }
-
