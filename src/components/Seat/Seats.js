@@ -49,6 +49,7 @@ const Seats = ({ totalSeats, selectedMovie, setSelectedMovie }) => {
     // Only reload the screen when the booking is submitted
     if (submitted) {
       setLoaded(false);
+      setSelectedSeats([]);
       getMovieById(selectedMovie.id, setSelectedMovie, setLoaded);
     }
   };
