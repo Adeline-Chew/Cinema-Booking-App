@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Movie Controller Class
+ * 
+ * @author Adeline Chew Yao Yi
+ */
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/movies")
@@ -21,34 +26,53 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    //    Get all movies
+    /**
+     * Get All movies
+     * 
+     * @return List of Movie objects
+     */
     @GetMapping
-    public ResponseEntity<List<Movie>> getAllMovies(){
+    public ResponseEntity<List<Movie>> getAllMovies() {
         List<Movie> movies = movieService.getAllMovies();
-        if (movies.isEmpty()){
+        if (movies.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
-    //    Get movie details by ID
+    /**
+     * Get movie details by ID
+     * 
+     * @param id Movie ID
+     * @return If found, return Movie object
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Movie> getMovieById(@PathVariable Long id) {
         Movie movie = movieService.getMovieById(id);
         return ResponseEntity.ok(movie);
     }
 
-    //    Add a new movie
+    /**
+     * Add a new Movie
+     * 
+     * @param movie JSON object that contains all required properties of Movie
+     * @return Newly created Movie object
+     */
     @PostMapping
     public Movie createMovie(@RequestBody Movie movie) {
         return movieService.addNewMovie(movie);
     }
 
-    // Update movie details by ID
+    /**
+     * Update movie details by ID
+     * 
+     * @param id           Movie ID
+     * @param movieDetails JSON object that contains updated Movie properties
+     * @return Newly updated movie
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Movie> updateMovie(@PathVariable Long id, @RequestBody Movie movieDetails) {
         Movie updatedMovie = movieService.updateMovieById(id, movieDetails);
         return ResponseEntity.ok(updatedMovie);
     }
 }
-
