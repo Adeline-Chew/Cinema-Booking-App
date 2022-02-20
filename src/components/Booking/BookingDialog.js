@@ -13,7 +13,7 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getSeatById, makeBooking } from "../../services/services";
 import { parseCurrency, parseDateTime } from "../../utils/helpers";
 import BookingSuccessful from "./BookingSuccessful";
@@ -31,6 +31,7 @@ const BookingDialog = ({
   const [changed, setChanged] = useState(false);
   const [bookingDetails, setBookingDetails] = useState();
   const [bookingStatus, setBookingStatus] = useState(false);
+  const form = useRef();
 
   useEffect(() => {
     setSelectedSeats([]);
@@ -40,12 +41,12 @@ const BookingDialog = ({
   }, [selectedSeatsIds]);
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    const { firstName, lastName, email } = values;
+    const { firstName, lastName, user_email } = values;
 
     await makeBooking(
       firstName,
       lastName,
-      email,
+      user_email,
       movie.id,
       selectedSeatsIds,
       setBookingDetails,
@@ -56,8 +57,14 @@ const BookingDialog = ({
     setChanged(false);
   };
 
+  const handleClose = () => {
+    handleDialogClose();
+    setBookingDetails();
+    setBookingStatus(false);
+  };
+
   return (
-    <Dialog open={open} onClose={handleDialogClose} fullWidth>
+    <Dialog open={open} onClose={handleClose} fullWidth>
       <Stack
         direction="row"
         sx={{
@@ -148,12 +155,12 @@ const BookingDialog = ({
               </Grid>
             </Card>
             <Formik
-              initialValues={{ firstName: "", lastName: "", email: "" }}
+              initialValues={{ firstName: "", lastName: "", user_email: "" }}
               onSubmit={handleSubmit}
               validationSchema={Yup.object().shape({
                 firstName: Yup.string().required("First name is required"),
                 lastName: Yup.string().required("Last name is required"),
-                email: Yup.string()
+                user_email: Yup.string()
                   .email("Email must be a valid email address")
                   .required("Email is required"),
               })}
@@ -169,7 +176,12 @@ const BookingDialog = ({
                   handleSubmit,
                 } = props;
                 return (
-                  <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+                  <Form
+                    autoComplete="off"
+                    noValidate
+                    onSubmit={handleSubmit}
+                    ref={form}
+                  >
                     <Grid container spacing={2} sx={{ alignItems: "center" }}>
                       <Grid item md={6} xs={6}>
                         <TextField
@@ -177,6 +189,7 @@ const BookingDialog = ({
                           margin="normal"
                           required
                           label="First Name"
+                          name="firstName"
                           size="small"
                           variant="outlined"
                           fullWidth
@@ -196,6 +209,7 @@ const BookingDialog = ({
                           margin="normal"
                           required
                           label="Last Name"
+                          name="lastName"
                           size="small"
                           variant="outlined"
                           fullWidth
@@ -212,22 +226,25 @@ const BookingDialog = ({
 
                       <Grid item md={12} xs={12}>
                         <TextField
-                          id="email"
+                          id="user_email"
                           type="email"
                           margin="normal"
                           required
                           label="Email"
+                          name="user_email"
                           size="small"
                           variant="outlined"
                           fullWidth
-                          value={values.email}
+                          value={values.user_email}
                           onChange={(e) => {
                             setChanged(true);
                             handleChange(e);
                           }}
                           onBlur={handleBlur}
-                          error={Boolean(touched.email && errors.email)}
-                          helperText={touched.email && errors.email}
+                          error={Boolean(
+                            touched.user_email && errors.user_email
+                          )}
+                          helperText={touched.user_email && errors.user_email}
                         />
                       </Grid>
                     </Grid>

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emailjs/browser": "^3.4.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.4.1",
@@ -23,6 +24,7 @@
     "react-hot-toast": "^2.2.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "stream": "^0.0.2",
     "styled-components": "^5.3.3",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
