@@ -1,4 +1,3 @@
-import moment from "moment";
 import api from "./api";
 
 export async function getMovies(setList, setLoaded) {

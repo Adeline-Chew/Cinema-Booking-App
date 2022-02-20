@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DoneIcon from "@mui/icons-material/Done";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
@@ -35,7 +35,7 @@ const useClickedStyles = makeStyles({
   },
 });
 const Seat = (props) => {
-  const { handleAddSeat, children, setSelectedSeats, seat } = props;
+  const { handleAddSeat, seat } = props;
   const [checked, setChecked] = useState(false);
   const classes = useStyles(props);
   const clickedClasses = useClickedStyles(props);

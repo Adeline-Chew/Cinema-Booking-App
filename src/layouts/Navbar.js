@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 // material
 import { styled } from "@mui/material/styles";
@@ -7,15 +7,12 @@ import {
   AppBar,
   Toolbar,
   Grid,
-  Button,
   Typography,
   Stack,
   FormControl,
   Select,
   MenuItem,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import MHidden from "../components/@material-extend/MHidden";
 import { useNavigate } from "react-router-dom";
 import logo from "../images/cinemalogo.png";
 
@@ -69,66 +66,56 @@ export default function Navbar({
   return (
     <RootStyle>
       <ToolbarStyle>
-        <MHidden width="lgUp">
-          <Button onClick={onOpenSidebar}>
-            <MenuIcon sx={{ mr: 1, color: "text.primary" }} />
-          </Button>
-        </MHidden>
-        {!hidden && (
-          <>
-            <Grid
-              container
-              spacing={3}
-              direction="row"
-              alignItems="center"
-              sx={{
-                position: "absolute",
-                bottom: 10,
+        <Grid
+          container
+          spacing={3}
+          direction="row"
+          alignItems="center"
+          sx={{
+            position: "absolute",
+          }}
+        >
+          <Grid item md={2} xs={2}>
+            <img
+              onClick={() => {
+                navigate("/index");
               }}
-            >
-              <Grid item md={2}>
-                <img
-                  onClick={() => {
-                    navigate("/index");
-                  }}
-                  src={logo}
-                  alt="logo"
-                  style={{
-                    width: "70px",
-                    height: "70px",
-                    cursor: "pointer",
-                  }}
-                />
-              </Grid>
-              {movieLoaded && (
-                <Grid item md={6}>
-                  <Typography variant="h4">{selectedMovie.name}</Typography>
-                </Grid>
-              )}
-              {loaded && (
-                <Grid item md={4}>
-                  <Stack direction="row" spacing={2} alignItems="center">
-                    <Typography variant="subtitle1">Movie:</Typography>
-                    <FormControl fullWidth>
-                      {/* <InputLabel>Movie</InputLabel> */}
-                      <Select
-                        value={selectedMovieId}
-                        onChange={handleMovieChange}
-                        size="small"
-                      >
-                        {movieList.map((movie) => (
-                          <MenuItem value={movie.id} key={movie.id}>
-                            {movie.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Stack>
-                </Grid>
-              )}
+              src={logo}
+              alt="logo"
+              style={{
+                width: "70px",
+                height: "70px",
+                cursor: "pointer",
+              }}
+            />
+          </Grid>
+          {movieLoaded && (
+            <Grid item md={6} xs={6}>
+              <Typography variant="h4">{selectedMovie.name}</Typography>
             </Grid>
-          </>
-        )}
+          )}
+          {loaded && (
+            <Grid item md={4} xs={4}>
+              <Stack direction="row" spacing={2} alignItems="center">
+                <Typography variant="subtitle1">Movie:</Typography>
+                <FormControl fullWidth>
+                  {/* <InputLabel>Movie</InputLabel> */}
+                  <Select
+                    value={selectedMovieId}
+                    onChange={handleMovieChange}
+                    size="small"
+                  >
+                    {movieList.map((movie) => (
+                      <MenuItem value={movie.id} key={movie.id}>
+                        {movie.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Stack>
+            </Grid>
+          )}
+        </Grid>
       </ToolbarStyle>
     </RootStyle>
   );

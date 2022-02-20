@@ -1,6 +1,6 @@
-import { Backdrop, CircularProgress, Container } from "@mui/material";
+import { Backdrop, CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useOutletContext } from "react-router-dom";
 import SeatIndicator from "../components/Seat/SeatIndicator";
 import Seats from "../components/Seat/Seats";

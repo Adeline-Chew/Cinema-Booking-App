@@ -27,7 +27,6 @@ const MainStyle = styled("div")(({ theme }) => ({
 }));
 
 const MainLayout = () => {
-  const [open, setOpen] = useState(false);
   const hidden = useMediaQuery((theme) => theme.breakpoints.up("md"));
   const [movieList, setMovieList] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -48,7 +47,6 @@ const MainLayout = () => {
   return (
     <RootStyle>
       <Navbar
-        onOpenSidebar={() => setOpen(true)}
         hidden={!hidden}
         handleMovieChange={handleMovieChange}
         movieLoaded={movieLoaded}

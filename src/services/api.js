@@ -1,13 +1,13 @@
 import axios from "axios";
 import { apiLogout } from "./auth.service";
-import {
-  getLocalAccessToken,
-  updateLocalAccessToken,
-  getLocalRefreshToken,
-} from "./token.service";
+import { updateLocalAccessToken, getLocalRefreshToken } from "./token.service";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
+  auth: {
+    username: process.env.REACT_APP_API_USERNAME,
+    password: process.env.REACT_APP_API_PASSWORD,
+  },
   headers: {
     "Content-Type": "application/json",
   },

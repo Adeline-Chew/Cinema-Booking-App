@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Card,
   Dialog,
@@ -28,7 +27,6 @@ const BookingDialog = ({
   setSubmitted,
 }) => {
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [changed, setChanged] = useState(false);
   const [bookingDetails, setBookingDetails] = useState();
   const [bookingStatus, setBookingStatus] = useState(false);
   const form = useRef();
@@ -54,12 +52,12 @@ const BookingDialog = ({
       setSubmitted
     );
     setSubmitting(false);
-    setChanged(false);
   };
 
   const handleClose = () => {
     handleDialogClose();
     setBookingDetails();
+    setSubmitted(false);
     setBookingStatus(false);
   };
 
@@ -195,7 +193,6 @@ const BookingDialog = ({
                           fullWidth
                           value={values.firstName}
                           onChange={(e) => {
-                            setChanged(true);
                             handleChange(e);
                           }}
                           onBlur={handleBlur}
@@ -215,7 +212,6 @@ const BookingDialog = ({
                           fullWidth
                           value={values.lastName}
                           onChange={(e) => {
-                            setChanged(true);
                             handleChange(e);
                           }}
                           onBlur={handleBlur}
@@ -237,7 +233,6 @@ const BookingDialog = ({
                           fullWidth
                           value={values.user_email}
                           onChange={(e) => {
-                            setChanged(true);
                             handleChange(e);
                           }}
                           onBlur={handleBlur}
