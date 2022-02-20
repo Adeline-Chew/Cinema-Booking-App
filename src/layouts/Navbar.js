@@ -12,9 +12,7 @@ import {
   Stack,
   FormControl,
   Select,
-  InputLabel,
   MenuItem,
-  Container,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import MHidden from "../components/@material-extend/MHidden";
@@ -39,13 +37,12 @@ const RootStyle = styled(AppBar)(({ theme }) => ({
 
 const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   minHeight: APPBAR_MOBILE,
+  maxWidth: "1200px",
   width: "100%",
   display: "flex",
   justifyContent: "space-between",
-  marginLeft: "3%",
   [theme.breakpoints.up("lg")]: {
     minHeight: APPBAR_DESKTOP,
-    padding: theme.spacing(0, 5),
   },
 }));
 
@@ -102,12 +99,12 @@ export default function Navbar({
                 />
               </Grid>
               {movieLoaded && (
-                <Grid item md={7}>
+                <Grid item md={6}>
                   <Typography variant="h4">{selectedMovie.name}</Typography>
                 </Grid>
               )}
               {loaded && (
-                <Grid item md={3}>
+                <Grid item md={4}>
                   <Stack direction="row" spacing={2} alignItems="center">
                     <Typography variant="subtitle1">Movie:</Typography>
                     <FormControl fullWidth>
