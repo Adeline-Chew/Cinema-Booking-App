@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import Seat from "./Seat";
 import { makeStyles } from "@mui/styles";
 import BookingDialog from "../Booking/BookingDialog";
@@ -34,18 +42,21 @@ const Seats = ({ totalSeats, selectedMovie, setSelectedMovie }) => {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [openBookingDialog, setOpenBookingDialog] = useState(false);
   const [openBookedWarningDialog, setOpenBookedWarningDialog] = useState(false);
+  const [loaded, setLoaded] = useState(true);
 
   const handleBookingDialogClose = () => {
     setOpenBookingDialog(false);
     // Only reload the screen when the booking is submitted
     if (submitted) {
-      window.location.reload();
+      setLoaded(false);
+      getMovieById(selectedMovie.id, setSelectedMovie, setLoaded);
     }
   };
 
   const handleWarningDialogClose = () => {
+    setLoaded(false);
     setOpenBookedWarningDialog(false);
-    window.location.reload();
+    getMovieById(selectedMovie.id, setSelectedMovie, setLoaded);
   };
 
   const handleBookBtnClick = async () => {
@@ -53,7 +64,6 @@ const Seats = ({ totalSeats, selectedMovie, setSelectedMovie }) => {
     for (let i = 0; i < selectedSeats.length; i++) {
       // Some of the seats are booked
       let isBooked = await checkSeatStatus(selectedSeats[i]);
-      console.log(isBooked);
       if (isBooked) {
         setOpenBookedWarningDialog(true);
         seatStatus = false;
@@ -80,7 +90,7 @@ const Seats = ({ totalSeats, selectedMovie, setSelectedMovie }) => {
     setSelectedSeats(newSelectedSeat);
   };
 
-  return (
+  return loaded ? (
     <Container sx={{ my: 2 }}>
       <Grid container columns={10} columnSpacing={5} rowSpacing={3}>
         {totalSeats.length > 0 &&
@@ -123,6 +133,13 @@ const Seats = ({ totalSeats, selectedMovie, setSelectedMovie }) => {
         handleDialogClose={handleWarningDialogClose}
       />
     </Container>
+  ) : (
+    <Backdrop
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={true}
+    >
+      <CircularProgress color="inherit" />
+    </Backdrop>
   );
 };
 

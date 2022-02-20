@@ -43,6 +43,8 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   justifyContent: "space-between",
   [theme.breakpoints.up("lg")]: {
     minHeight: APPBAR_DESKTOP,
+    paddingLeft: "24px",
+    paddingRight: "24px",
   },
 }));
 
