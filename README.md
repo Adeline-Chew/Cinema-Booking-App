@@ -1,4 +1,43 @@
-# Getting Started with Create React App
+# Adeline Cinema Web Application Frontend with ReactJS
+
+## About This Web Application
+
+1. This web application based on Spring Boot, ReactJS and mySQL.
+2. A deployed version of this app can be viewed [here](https://adelinecinema.xyz).
+3. Select different movie using the drop down bar on the top right of the navigation bar.
+4. Select seats according to your choice.
+5. Press book button, fill up your name and email.
+6. A confirmation email will be sent to your mailbox once the booking is successful.
+7a. If the selected seat is already booked, there will be a error pop up showing the message.
+7b. Press refresh seats button to refresh the seats status.
+
+## Running frontend locally
+
+1. Download the zip or clone the Git repository `git clone https://github.com/Adeline-Chew/Cinema-Booking-App.git`.
+2. Unzip the zip file (Cinema-Booking-App-frontend).
+3. Cd to the project.
+4. Run `yarn` or `npm install` to install dependencies.
+5. Run `yarn start` or `npm start`.
+6. You are all set, the frontend is accessible here: http://localhost:3000/
+
+## Screenshots!
+
+Main Page
+<img src="https://github.com/Adeline-Chew/Cinema-Booking-App/blob/84896fc052e7426a75269b0def26976facb55f85/readme-assets/seat_layout.png" />
+
+<details>
+  <summary>More Screenshots</summary>
+  Selected Seats
+  <img src="https://github.com/Adeline-Chew/Cinema-Booking-App/blob/84896fc052e7426a75269b0def26976facb55f85/readme-assets/selected_seats.png" />
+
+  Booking Form
+  <img src="https://github.com/Adeline-Chew/Cinema-Booking-App/blob/84896fc052e7426a75269b0def26976facb55f85/readme-assets/booking_form.png" />
+
+  Booking Confirmation
+  <img src="https://github.com/Adeline-Chew/Cinema-Booking-App/blob/84896fc052e7426a75269b0def26976facb55f85/readme-assets/booking_confirmation.png" />
+</details>
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
