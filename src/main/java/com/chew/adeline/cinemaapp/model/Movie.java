@@ -34,9 +34,10 @@ public class Movie {
     @JoinColumn(name = "movie_id")
     @Value("${some.key:0}")
     @OrderBy("id")
-    private List<Seat> seats = new ArrayList<>();
+    private List<Seat> seats;
 
     public Movie () {
+        this.initialiseSeats();
     }
 
     public Movie(String name, LocalDateTime showtime, int hall, Double price) {
@@ -44,19 +45,18 @@ public class Movie {
         this.showtime = showtime;
         this.hall = hall;
         this.price = price;
+        this.initialiseSeats();
     }
 
-    /**
-     * For now, every new movie has 5 rows and each row has 10 columns
-     * Total 50 seats
-     */
-    public void initializedSeats() {
+    public void initialiseSeats() {
+        List<Seat> newSeats = new ArrayList<>();
         for (int row = 65; row < 70; row++) {
-            for (int col = 0; col < 10; col++) {
+            for (int col = 1; col <= 10; col++) {
                 Seat newSeat = new Seat((char) row, col);
-                this.seats.add(newSeat);
+                newSeats.add(newSeat);
             }
         }
+        this.setSeats(newSeats);
     }
 
     public Double getPrice() {
