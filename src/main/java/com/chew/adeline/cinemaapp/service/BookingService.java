@@ -14,6 +14,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Booking service class
+ * 
+ * Represents business logic for booking procedure
+ * 
+ * @author Adeline Chew Yao Yi
+ */
 @Service
 public class BookingService {
     private final BookingRepository bookingRepository;
@@ -22,24 +29,46 @@ public class BookingService {
 
     @Autowired
     public BookingService(BookingRepository bookingRepository, SeatRepository seatRepository,
-                          MovieRepository movieRepository) {
+            MovieRepository movieRepository) {
         this.bookingRepository = bookingRepository;
         this.seatRepository = seatRepository;
         this.movieRepository = movieRepository;
     }
 
+    /**
+     * Get all bookings from DB
+     * 
+     * @return List of booking objects
+     */
     public List<Booking> getAllBookings() {
         return new ArrayList<>(bookingRepository.findAll());
     }
 
+    /**
+     * Get Booking details by ID
+     * 
+     * @param id Booking ID
+     * @return If found, return Booking object
+     */
     public Booking getBookingById(Long id) {
         return bookingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Booking not exist with id: " + id));
     }
 
+    /**
+     * Add new booking, check if the seat selected is taken,
+     * issue new booking when all seats are available
+     * 
+     * @param firstName Customer first name
+     * @param lastName  Customer last name
+     * @param email     Customer email
+     * @param movieId   Selected movie ID
+     * @param seatIds   Selected seat(s)
+     * @return Newly created Booking details
+     */
     public Booking addNewBooking(String firstName, String lastName,
-                                 String email, Long movieId,
-                                 List<Long> seatIds) {
+            String email, Long movieId,
+            List<Long> seatIds) {
         List<Seat> selectedSeats = new ArrayList<>();
         for (Long seatId : seatIds) {
             Seat seat = seatRepository.findById(seatId)
@@ -59,6 +88,5 @@ public class BookingService {
         Booking newBooking = new Booking(firstName, lastName, email, movie, selectedSeats);
         return bookingRepository.save(newBooking);
     }
-
 
 }

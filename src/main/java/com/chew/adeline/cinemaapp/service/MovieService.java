@@ -11,6 +11,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Movie service class
+ * 
+ * Represents business logic for movie
+ * 
+ * @author Adeline Chew Yao Yi
+ */
 @Service
 public class MovieService {
     private final MovieRepository movieRepository;
@@ -20,25 +27,48 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
+    /**
+     * Get all movies from DB
+     * 
+     * @return List of Movie objects
+     */
     public List<Movie> getAllMovies() {
         return new ArrayList<>(movieRepository.findAll());
     }
 
+    /**
+     * Get movie details by ID
+     * 
+     * @param id Movie ID
+     * @return If found, return movie object
+     */
     public Movie getMovieById(Long id) {
         return movieRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not exist with id: " + id));
     }
 
+    /**
+     * Add new movie, name and showtime must not be null
+     * 
+     * @param newMovie New movie
+     * @return Newly created Movie object
+     */
     public Movie addNewMovie(Movie newMovie) {
         if (newMovie.getName() == null || newMovie.getName().equals("")) {
             throw new BadRequestException("Movie name cannot be null.");
-        }
-        else if (newMovie.getShowtime() == null) {
+        } else if (newMovie.getShowtime() == null) {
             throw new BadRequestException("Movie showtime is not valid.");
         }
         return movieRepository.save(newMovie);
     }
 
+    /**
+     * Update movie details
+     * 
+     * @param id              Movie ID
+     * @param newMovieDetails Movie object with updated details
+     * @return Movie object with updated details
+     */
     public Movie updateMovieById(Long id, Movie newMovieDetails) {
         Movie movie = movieRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not exist with id: " + id));
@@ -49,8 +79,5 @@ public class MovieService {
 
         return movieRepository.save(movie);
     }
-
-
-
 
 }
